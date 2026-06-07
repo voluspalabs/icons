@@ -1,0 +1,23 @@
+import type { JSX } from "react";
+
+export function PiMusicBeamNoteOffStroke(props: JSX.IntrinsicElements["svg"]) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M22 2L21.7003 2.29972M2 22L2.87867 21.1213M8 12V7.86311C8 7.04079 8.50333 6.30228 9.2687 6.0016L19.9515 1.80478C20.6148 1.54422 21.3145 1.78884 21.7003 2.29972M8 12L14.5882 9.4118M8 12V16M22 16C22 17.6569 20.6569 19 19 19C17.3431 19 16 17.6569 16 16C16 14.3432 17.3431 13 19 13C20.6569 13 22 14.3432 22 16ZM22 16V7.6542M14.5882 9.4118L21.7003 2.29972M14.5882 9.4118L8 16M7.12131 16.8787C6.57842 16.3358 5.82842 16 5 16C3.34315 16 2 17.3432 2 19C2 19.8284 2.33578 20.5784 2.87867 21.1213M7.12131 16.8787L8 16M7.12131 16.8787L2.87867 21.1213"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

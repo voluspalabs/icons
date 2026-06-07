@@ -1,0 +1,31 @@
+import type { JSX } from "react";
+
+export function PiTabletDuoStroke(props: JSX.IntrinsicElements["svg"]) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 25 24"
+      width="25"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M15.1 2H9.9C7.65979 2 6.53968 2 5.68404 2.43597C4.93139 2.81947 4.31947 3.43139 3.93597 4.18404C3.5 5.03968 3.5 6.15979 3.5 8.4V15.6C3.5 17.8402 3.5 18.9603 3.93597 19.816C4.31947 20.5686 4.93139 21.1805 5.68404 21.564C6.53968 22 7.65979 22 9.9 22H15.1C17.3402 22 18.4603 22 19.316 21.564C20.0686 21.1805 20.6805 20.5686 21.064 19.816C21.5 18.9603 21.5 17.8402 21.5 15.6V8.4C21.5 6.15979 21.5 5.03968 21.064 4.18404C20.6805 3.43139 20.0686 2.81947 19.316 2.43597C18.4603 2 17.3402 2 15.1 2Z"
+        opacity="0.28"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M10.5 19H14.5"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

@@ -1,0 +1,28 @@
+import type { JSX } from "react";
+
+export function PiBulbDefaultDuoSolid(props: JSX.IntrinsicElements["svg"]) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12 2C7.61818 2 4 5.42813 4 9.73684C4 12.0938 5.08994 14.1967 6.7906 15.6089C7.33765 16.0632 7.70411 16.5451 7.8356 17.0513L8.11544 18.1286C8.40172 19.2306 9.3965 20 10.5351 20H13.4649C14.6035 20 15.5983 19.2306 15.8846 18.1286L16.1644 17.0513C16.2959 16.5451 16.6623 16.0632 17.2094 15.6089C18.9101 14.1967 20 12.0938 20 9.73684C20 5.42813 16.3818 2 12 2Z"
+        fill="currentcolor"
+        opacity="0.28"
+      />
+      <path
+        d="M12 12V16M12 12H13M12 12H11M10 22H14"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

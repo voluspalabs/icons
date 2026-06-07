@@ -1,0 +1,28 @@
+import type { JSX } from "react";
+
+export function PiCloudCheckDuoSolid(props: JSX.IntrinsicElements["svg"]) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12.5 4C8.80966 4 5.7425 6.66476 5.11669 10.1756C2.74839 10.7894 1 12.94 1 15.5C1 18.5376 3.46243 21 6.5 21H16.5C20.0899 21 23 18.0898 23 14.5C23 11.9769 21.5626 9.7916 19.4654 8.71459C18.36 5.95271 15.6592 4 12.5 4Z"
+        fill="currentcolor"
+        opacity="0.28"
+      />
+      <path
+        d="M9 13.597L11.3412 15.9357C12.4672 13.9667 14.0256 12.2791 15.8987 11"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

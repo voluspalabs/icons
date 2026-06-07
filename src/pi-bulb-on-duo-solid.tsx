@@ -1,0 +1,28 @@
+import type { JSX } from "react";
+
+export function PiBulbOnDuoSolid(props: JSX.IntrinsicElements["svg"]) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12.0002 3.99426C8.3433 3.99426 5.31274 6.85686 5.31274 10.4679C5.31274 12.4425 6.22612 14.2027 7.64782 15.3832C8.07705 15.7397 8.3422 16.1001 8.43519 16.4581L8.66256 17.3334C8.91663 18.3114 9.79951 18.9943 10.81 18.9943H13.1904C14.201 18.9943 15.0839 18.3114 15.3379 17.3334L15.5653 16.4581C15.6583 16.1001 15.9234 15.7397 16.3527 15.3832C17.7744 14.2027 18.6877 12.4425 18.6877 10.4679C18.6877 6.85686 15.6572 3.99426 12.0002 3.99426Z"
+        fill="currentcolor"
+        opacity="0.28"
+      />
+      <path
+        d="M10.3789 21H13.621M12 2V1M19 4.70711L19.7071 4M4.70711 4.70711L4 4M22 11H21M3 11H2"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

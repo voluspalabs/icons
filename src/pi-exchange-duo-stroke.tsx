@@ -1,0 +1,38 @@
+import type { JSX } from "react";
+
+export function PiExchangeDuoStroke(props: JSX.IntrinsicElements["svg"]) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M10 15.8115C9.25975 14.8245 8.40101 13.9332 7.44357 13.1574C7.31408 13.0525 7.15704 13 7 13M4 15.8115C4.74024 14.8245 5.59899 13.9332 6.55643 13.1574C6.68592 13.0525 6.84296 13 7 13M7 13L7 21M20 8.18847C19.2598 9.17546 18.401 10.0668 17.4436 10.8426C17.3141 10.9475 17.157 11 17 11M14 8.18847C14.7402 9.17546 15.599 10.0668 16.5564 10.8426C16.6859 10.9475 16.843 11 17 11M17 11L17 3"
+        opacity="0.28"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M3.8501 5.99961C3.8501 7.73931 5.2604 9.14961 7.0001 9.14961C8.73979 9.14961 10.1501 7.73931 10.1501 5.99961C10.1501 4.25991 8.73979 2.84961 7.0001 2.84961C5.2604 2.84961 3.8501 4.25991 3.8501 5.99961Z"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M13.8501 17.9996C13.8501 19.7393 15.2604 21.1496 17.0001 21.1496C18.7398 21.1496 20.1501 19.7393 20.1501 17.9996C20.1501 16.2599 18.7398 14.8496 17.0001 14.8496C15.2604 14.8496 13.8501 16.2599 13.8501 17.9996Z"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

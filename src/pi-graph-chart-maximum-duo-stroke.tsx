@@ -1,0 +1,33 @@
+import type { JSX } from "react";
+
+export function PiGraphChartMaximumDuoStroke(
+  props: JSX.IntrinsicElements["svg"]
+) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M21 21H7C4.79086 21 3 19.2091 3 17V3"
+        opacity="0.28"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M7 17C7.82746 11.8168 10.6479 8 14 8C17.3521 8 20.1725 11.8168 21 17M8 5H8.01M11 5H11.01M17 5H17.01M20 5H20.01M13.99 5H14"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

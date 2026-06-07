@@ -1,0 +1,33 @@
+import type { JSX } from "react";
+
+export function PiRepeatRectangularDuoStroke(
+  props: JSX.IntrinsicElements["svg"]
+) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 25 24"
+      width="25"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M21.5 5H11.5C8.69974 5 7.29961 5 6.23005 5.54497C5.28924 6.02433 4.52433 6.78924 4.04497 7.73005C3.56911 8.66397 3.50876 9.84993 3.50111 12M3.5 19H13.5C16.3003 19 17.7004 19 18.77 18.455C19.7108 17.9757 20.4757 17.2108 20.955 16.27C21.4309 15.336 21.4912 14.1501 21.4989 12"
+        opacity="0.28"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M18.5 2C19.5964 2.79655 20.5785 3.73031 21.4207 4.77659C21.5264 4.90803 21.5264 5.09197 21.4207 5.22341C20.5785 6.26969 19.5964 7.20345 18.5 8M6.5 16C5.40359 16.7965 4.42154 17.7303 3.57935 18.7766C3.47355 18.908 3.47355 19.092 3.57935 19.2234C4.42154 20.2697 5.40359 21.2035 6.5 22"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

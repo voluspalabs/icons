@@ -1,0 +1,39 @@
+import type { JSX } from "react";
+
+export function PiDivideDefaultDuoStroke(props: JSX.IntrinsicElements["svg"]) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g opacity="0.28">
+        <path
+          d="M13.0015 17.0015C13.0015 17.5546 12.5531 18.0029 12 18.0029C11.4469 18.0029 10.9985 17.5546 10.9985 17.0015C10.9985 16.4484 11.4469 16 12 16C12.5531 16 13.0015 16.4484 13.0015 17.0015Z"
+          stroke="currentcolor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+        />
+        <path
+          d="M13.0015 6.99854C13.0015 7.55163 12.5531 8 12 8C11.4469 8 10.9985 7.55163 10.9985 6.99854C10.9985 6.44544 11.4469 5.99707 12 5.99707C12.5531 5.99707 13.0015 6.44544 13.0015 6.99854Z"
+          stroke="currentcolor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+        />
+      </g>
+      <path
+        d="M5 12H19"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

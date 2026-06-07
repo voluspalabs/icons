@@ -1,0 +1,28 @@
+import type { JSX } from "react";
+
+export function PiClockDefaultDuoSolid(props: JSX.IntrinsicElements["svg"]) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11.9996 1.8501C6.39392 1.8501 1.84961 6.39441 1.84961 12.0001C1.84961 17.6058 6.39392 22.1501 11.9996 22.1501C17.6053 22.1501 22.1496 17.6058 22.1496 12.0001C22.1496 6.39441 17.6053 1.8501 11.9996 1.8501Z"
+        fill="currentcolor"
+        opacity="0.28"
+      />
+      <path
+        d="M12 7.8999V12.8163C12 12.9873 12.0873 13.1464 12.2316 13.2382L15.0437 15.0277"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

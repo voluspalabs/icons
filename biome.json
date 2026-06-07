@@ -1,0 +1,14 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.16/schema.json",
+  "extends": ["@voluspalabs/lint"],
+  "files": {
+    "includes": [
+      "**",
+      "!dist",
+      "!node_modules",
+      "!site/dist",
+      "!src/*.tsx",
+      "!src/index.ts"
+    ]
+  }
+}

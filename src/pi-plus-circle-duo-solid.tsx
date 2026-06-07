@@ -1,0 +1,28 @@
+import type { JSX } from "react";
+
+export function PiPlusCircleDuoSolid(props: JSX.IntrinsicElements["svg"]) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12.0001 1.8501C6.39441 1.8501 1.8501 6.39441 1.8501 12.0001C1.8501 17.6058 6.39441 22.1501 12.0001 22.1501C17.6058 22.1501 22.1501 17.6058 22.1501 12.0001C22.1501 6.39441 17.6058 1.8501 12.0001 1.8501Z"
+        fill="currentcolor"
+        opacity="0.28"
+      />
+      <path
+        d="M11.9999 15.0999V11.9999M11.9999 11.9999V8.8999M11.9999 11.9999H8.8999M11.9999 11.9999H15.0999"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

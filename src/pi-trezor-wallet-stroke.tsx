@@ -1,0 +1,23 @@
+import type { JSX } from "react";
+
+export function PiTrezorWalletStroke(props: JSX.IntrinsicElements["svg"]) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M8 9V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V9M6 10.5V17.1004C6 17.6542 6.30508 18.1629 6.79357 18.4237L11.2936 20.8261C11.735 21.0617 12.265 21.0617 12.7064 20.8261L17.2064 18.4237C17.6949 18.1629 18 17.6542 18 17.1004V10.5C18 9.67157 17.3284 9 16.5 9H7.5C6.67157 9 6 9.67157 6 10.5Z"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

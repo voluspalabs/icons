@@ -1,0 +1,31 @@
+import type { JSX } from "react";
+
+export function PiArrowUpSquareDuoStroke(props: JSX.IntrinsicElements["svg"]) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 25 24"
+      width="25"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M7.2039 20.5433C8.30653 21 9.70435 21 12.5 21C15.2956 21 16.6935 21 17.7961 20.5433C19.2663 19.9343 20.4343 18.7663 21.0433 17.2961C21.5 16.1935 21.5 14.7956 21.5 12C21.5 9.20435 21.5 7.80653 21.0433 6.7039C20.4343 5.23373 19.2663 4.06569 17.7961 3.45672C16.6935 3 15.2956 3 12.5 3C9.70435 3 8.30653 3 7.2039 3.45672C5.73373 4.06569 4.56569 5.23373 3.95672 6.7039C3.5 7.80653 3.5 9.20435 3.5 12C3.5 14.7956 3.5 16.1935 3.95672 17.2961C4.56569 18.7663 5.73373 19.9343 7.2039 20.5433Z"
+        opacity="0.28"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M8.5 11.9486C9.53704 10.5241 10.7485 9.24467 12.1038 8.1419C12.22 8.0473 12.36 8 12.5 8M16.5 11.9486C15.463 10.5241 14.2515 9.24467 12.8962 8.1419C12.78 8.0473 12.64 8 12.5 8M12.5 8L12.5 16"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

@@ -1,0 +1,31 @@
+import type { JSX } from "react";
+
+export function PiShuffleDuoStroke(props: JSX.IntrinsicElements["svg"]) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 25 24"
+      width="25"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M21.5 7H17.6239C15.666 7 13.8313 7.95527 12.7085 9.55923L9.29146 14.4408C8.16869 16.0447 6.33395 17 4.37607 17H2.5M21.5 17H17.6239C16.2187 17 14.8768 16.5079 13.8162 15.637M2.5 7H4.37607C5.85342 7 7.26066 7.54391 8.34481 8.5"
+        opacity="0.28"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+      <path
+        d="M18.6885 4C19.6755 4.74024 20.5668 5.59899 21.3426 6.55643C21.4475 6.68592 21.5 6.84296 21.5 7C21.5 7.15704 21.4475 7.31408 21.3426 7.44357C20.5668 8.40101 19.6755 9.25976 18.6885 10M18.6885 20C19.6755 19.2598 20.5668 18.401 21.3426 17.4436C21.4475 17.3141 21.5 17.157 21.5 17C21.5 16.843 21.4475 16.6859 21.3426 16.5564C20.5668 15.599 19.6755 14.7402 18.6885 14"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}

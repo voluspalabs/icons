@@ -1,0 +1,28 @@
+import type { JSX } from "react";
+
+export function PiListAiGeneratedContrast(props: JSX.IntrinsicElements["svg"]) {
+  return (
+    <svg
+      aria-hidden="true"
+      {...props}
+      fill="none"
+      height="24"
+      viewBox="0 0 24 24"
+      width="24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M18 13C18.6375 14.6165 19.3391 15.345 21 16C19.3391 16.655 18.6375 17.3835 18 19C17.3625 17.3835 16.6609 16.655 15 16C16.6609 15.345 17.3625 14.6165 18 13Z"
+        fill="currentcolor"
+        opacity="0.28"
+      />
+      <path
+        d="M4 12H13.5M4 18H10M4 6H20M14 20H14.01M18 13C17.3625 14.6165 16.6609 15.345 15 16C16.6609 16.655 17.3625 17.3835 18 19C18.6375 17.3835 19.3391 16.655 21 16C19.3391 15.345 18.6375 14.6165 18 13Z"
+        stroke="currentcolor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+}
