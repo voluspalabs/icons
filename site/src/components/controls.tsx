@@ -17,6 +17,7 @@ import type {
 import {
   PiCrossCircleStroke,
   PiFilterFunnelStroke,
+  PiGithubStroke,
   PiGrid01Stroke,
   PiListDefaultStroke,
   PiSearchBigStroke,
@@ -71,7 +72,19 @@ export function Controls({
     <>
       <header className="topbar">
         <div className="brand">
-          <p className="eyebrow">@voluspalabs/icons</p>
+          <div className="brand-head">
+            <p className="eyebrow">@voluspalabs/icons</p>
+            <a
+              aria-label="View @voluspalabs/icons on GitHub"
+              className="github-link"
+              href="https://github.com/voluspalabs/icons"
+              rel="noreferrer"
+              target="_blank"
+            >
+              <PiGithubStroke aria-hidden="true" />
+              <span>GitHub</span>
+            </a>
+          </div>
           <p className="inventory">
             <strong>{totalIcons.toLocaleString()}</strong> icons
             <span className="inventory-sep">across</span>
