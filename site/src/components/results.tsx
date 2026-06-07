@@ -13,7 +13,9 @@ import { useMeasuredElement } from '../hooks/use-measured-element'
 import {
   CATEGORY_HEADER_HEIGHT,
   GRID_CARD_HEIGHTS,
+  GRID_MAX_CARD_WIDTHS,
   GRID_MIN_CARD_WIDTHS,
+  GRID_VARIANT_ICON_MAX_SIZE,
   GRID_VARIANT_ICON_MIN_SIZE,
   GRID_VARIANT_ICON_SCALE,
   OVERSCAN_DIRECTIONS,
@@ -75,7 +77,12 @@ function getColumnCount(width: number, density: IconDensity) {
     return 1
   }
 
-  return Math.max(1, Math.floor(width / GRID_MIN_CARD_WIDTHS[density]))
+  // Most columns that still respect the minimum card width…
+  const byMinWidth = Math.floor(width / GRID_MIN_CARD_WIDTHS[density])
+  // …and the fewest that keep cards under the maximum width.
+  const byMaxWidth = Math.ceil(width / GRID_MAX_CARD_WIDTHS[density])
+
+  return Math.max(1, byMinWidth, byMaxWidth)
 }
 
 function buildVirtualLayout({
@@ -155,9 +162,11 @@ function VariantButton({
 }) {
   return (
     <button
+      aria-label={`${VARIANT_LABELS[entry.variant]} — ${entry.componentName}`}
       aria-pressed={isSelected}
       className="variant-tile"
       onClick={() => onSelect(entry)}
+      title={`${VARIANT_LABELS[entry.variant]} — ${entry.componentName}`}
       type="button"
     >
       <IconGlyph entry={entry} size={iconSize} />
@@ -258,9 +267,12 @@ function FamilyCard({
       <FamilySummary family={family} />
       <VariantStrip
         family={family}
-        iconSize={Math.max(
-          GRID_VARIANT_ICON_MIN_SIZE,
-          Math.round(iconSize * GRID_VARIANT_ICON_SCALE),
+        iconSize={Math.min(
+          GRID_VARIANT_ICON_MAX_SIZE,
+          Math.max(
+            GRID_VARIANT_ICON_MIN_SIZE,
+            Math.round(iconSize * GRID_VARIANT_ICON_SCALE),
+          ),
         )}
         isSelected={isSelected}
         onSelect={onSelect}

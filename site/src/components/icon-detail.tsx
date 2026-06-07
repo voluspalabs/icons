@@ -5,21 +5,32 @@ import { createRoot } from 'react-dom/client'
 import { VARIANT_LABELS } from '../constants'
 import { loadIcon } from '../icon-loader'
 import { DETAIL_PREVIEW_MIN_SIZE, DETAIL_PREVIEW_SCALE } from '../layout'
-import type { IconEntry } from '../types'
+import type { IconEntry, IconFamily } from '../types'
+import {
+  PiCheckTickCircleStroke,
+  PiCodeStroke,
+  PiCopyDefaultStroke,
+  PiFileCodeStroke,
+  PiTagStroke,
+} from '../ui-icons'
 import { CopyButton } from './copy-button'
 import { IconGlyph } from './icon-glyph'
 
 type IconDetailProps = {
   copiedLabel: string
+  family: IconFamily | null
   iconSize: number
   onCopy: (text: string, label: string) => Promise<void>
+  onSelect: (entry: IconEntry) => void
   selected: IconEntry | null
 }
 
 export function IconDetail({
   copiedLabel,
+  family,
   iconSize,
   onCopy,
+  onSelect,
   selected,
 }: IconDetailProps) {
   if (!selected) {
@@ -34,6 +45,11 @@ export function IconDetail({
   const subpathImport = `import { ${selected.componentName} } from '${selected.importPath}'`
   const jsxUsage = `<${selected.componentName} aria-hidden="true" className="icon" />`
   const componentSnippet = `${namedImport}\n\n${jsxUsage}`
+  const previewSize = Math.max(
+    DETAIL_PREVIEW_MIN_SIZE,
+    iconSize * DETAIL_PREVIEW_SCALE,
+  )
+  const variants = family?.variants ?? [selected]
 
   const copyRawSvg = async () => {
     const Icon = await loadIcon(selected)
@@ -62,41 +78,60 @@ export function IconDetail({
   return (
     <aside aria-label="Selected icon" className="detail-panel">
       <div className="preview-box">
-        <IconGlyph
-          entry={selected}
-          size={Math.max(
-            DETAIL_PREVIEW_MIN_SIZE,
-            iconSize * DETAIL_PREVIEW_SCALE,
-          )}
-        />
+        <span className="preview-badge">
+          {VARIANT_LABELS[selected.variant]}
+        </span>
+        <IconGlyph entry={selected} size={previewSize} />
       </div>
 
       <div className="detail-title">
-        <p>{VARIANT_LABELS[selected.variant]}</p>
         <h2>{selected.componentName}</h2>
         <span>{selected.fileName}</span>
       </div>
 
+      {variants.length > 1 ? (
+        <div className="variant-switcher">
+          {variants.map((entry) => (
+            <button
+              aria-label={VARIANT_LABELS[entry.variant]}
+              aria-pressed={entry.id === selected.id}
+              className="variant-switch"
+              key={entry.id}
+              onClick={() => onSelect(entry)}
+              type="button"
+            >
+              <IconGlyph entry={entry} size={22} />
+              <span>{VARIANT_LABELS[entry.variant]}</span>
+            </button>
+          ))}
+        </div>
+      ) : null}
+
       <div className="copy-grid">
         <CopyButton
+          icon={PiCodeStroke}
           label={`Copy component snippet for ${selected.componentName}`}
           onCopy={() => onCopy(componentSnippet, 'Component copied')}
+          variant="primary"
         >
           Component
         </CopyButton>
         <CopyButton
+          icon={PiCopyDefaultStroke}
           label={`Copy named import for ${selected.componentName}`}
           onCopy={() => onCopy(namedImport, 'Import copied')}
         >
           Import
         </CopyButton>
         <CopyButton
+          icon={PiTagStroke}
           label={`Copy subpath import for ${selected.componentName}`}
           onCopy={() => onCopy(subpathImport, 'Subpath copied')}
         >
           Subpath
         </CopyButton>
         <CopyButton
+          icon={PiFileCodeStroke}
           label={`Copy raw SVG for ${selected.componentName}`}
           onCopy={copyRawSvg}
         >
@@ -109,7 +144,12 @@ export function IconDetail({
       </pre>
 
       <p aria-live="polite" className="copy-status">
-        {copiedLabel}
+        {copiedLabel ? (
+          <>
+            <PiCheckTickCircleStroke aria-hidden="true" />
+            {copiedLabel}
+          </>
+        ) : null}
       </p>
     </aside>
   )

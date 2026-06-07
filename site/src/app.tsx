@@ -97,6 +97,14 @@ export function App() {
       : (filteredFamilies[0]?.variants[0] ?? null)
   }, [filteredFamilies, selected])
 
+  const selectedFamily = useMemo(
+    () =>
+      filteredFamilies.find((family) =>
+        family.variants.some((entry) => entry.id === visibleSelected?.id),
+      ) ?? null,
+    [filteredFamilies, visibleSelected],
+  )
+
   useEffect(
     () => () => {
       if (copiedTimer.current !== null) {
@@ -164,8 +172,10 @@ export function App() {
         />
         <IconDetail
           copiedLabel={copiedLabel}
+          family={selectedFamily}
           iconSize={iconSize}
           onCopy={copyText}
+          onSelect={setSelected}
           selected={visibleSelected}
         />
       </div>

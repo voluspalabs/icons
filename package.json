@@ -26279,6 +26279,8 @@
     "site:build": "vite build",
     "site:preview": "vite preview",
     "ci": "bun run build && bun run site:build && bun run biome ci && bun run check-exports",
+    "check": "biome check",
+    "check-types": "tsc --noEmit",
     "check-format": "biome check --write",
     "check-exports": "attw --pack . --entrypoints ./pi-github-stroke ./pi-npm-logo-symbol-stroke --ignore-rules=cjs-resolves-to-esm --profile esm-only && tsc --ignoreConfig --noEmit --module ESNext --moduleResolution bundler --target ESNext --jsx react-jsx --lib DOM,DOM.Iterable,ESNext --skipLibCheck scripts/smoke-types.ts",
     "ver": "changeset",

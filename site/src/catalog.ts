@@ -406,3 +406,24 @@ export const TOTAL_ICONS = CATALOG.reduce(
   (total, family) => total + family.totalVariants,
   0,
 )
+
+export type CategoryStat = {
+  families: number
+  icons: number
+}
+
+function buildCategoryStats() {
+  const stats = new Map<IconCategoryId, CategoryStat>()
+
+  for (const family of CATALOG) {
+    const current = stats.get(family.categoryId) ?? { families: 0, icons: 0 }
+
+    current.families += 1
+    current.icons += family.totalVariants
+    stats.set(family.categoryId, current)
+  }
+
+  return stats
+}
+
+export const CATEGORY_STATS = buildCategoryStats()
