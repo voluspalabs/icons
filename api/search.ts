@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { searchIcons, TOTAL_ICONS } from '../shared/icon-catalog'
+import { searchIcons, TOTAL_ICONS } from '../shared/icon-catalog.js'
 
 // GET /api/search?q=<query>&limit=25&variant=<variant>&category=<id>
 // Token-light: returns icon names + import lines only, never SVG markup.

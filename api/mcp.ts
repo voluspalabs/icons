@@ -12,9 +12,9 @@ import {
   TOTAL_ICONS,
   usageFor,
   VARIANTS,
-} from '../shared/icon-catalog'
-import { getSvg } from '../shared/icon-svgs'
-import { toComponentName } from '../shared/icon-taxonomy'
+} from '../shared/icon-catalog.js'
+import { getSvg } from '../shared/icon-svgs.js'
+import { toComponentName } from '../shared/icon-taxonomy.js'
 
 const VARIANT_VALUES = VARIANTS as [string, ...string[]]
 

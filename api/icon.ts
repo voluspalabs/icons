@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { getEntry, importFor, usageFor } from '../shared/icon-catalog'
-import { getSvg } from '../shared/icon-svgs'
-import { toComponentName } from '../shared/icon-taxonomy'
+import { getEntry, importFor, usageFor } from '../shared/icon-catalog.js'
+import { getSvg } from '../shared/icon-svgs.js'
+import { toComponentName } from '../shared/icon-taxonomy.js'
 
 // GET /api/icon?name=pi-github-stroke&format=json|svg|react
 // Returns a single icon as raw SVG and/or a ready-to-use React import.

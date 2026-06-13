@@ -12,7 +12,7 @@ import {
   matchesSearch,
   normalizeSearch,
   toComponentName,
-} from './icon-taxonomy'
+} from './icon-taxonomy.js'
 
 export const PACKAGE_NAME = manifest.package
 export const TOTAL_ICONS = manifest.total
