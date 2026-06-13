@@ -1,13 +1,11 @@
 /* biome-ignore-all lint/nursery/noJsxPropsBind: Control callbacks stay local to keep this compact toolbar readable. */
-import { CATEGORY_STATS } from '../catalog'
 import {
-  DEFAULT_ICON_SIZE,
   ICON_CATEGORIES,
-  ICON_SIZE_MAX,
-  ICON_SIZE_MIN,
   VARIANT_LABELS,
   VARIANT_ORDER,
-} from '../constants'
+} from '../../../shared/icon-taxonomy'
+import { CATEGORY_STATS } from '../catalog'
+import { DEFAULT_ICON_SIZE, ICON_SIZE_MAX, ICON_SIZE_MIN } from '../constants'
 import type {
   IconCategoryId,
   IconDensity,

@@ -2,7 +2,7 @@
 import { createElement } from 'react'
 import { flushSync } from 'react-dom'
 import { createRoot } from 'react-dom/client'
-import { VARIANT_LABELS } from '../constants'
+import { VARIANT_LABELS } from '../../../shared/icon-taxonomy'
 import { loadIcon } from '../icon-loader'
 import { DETAIL_PREVIEW_MIN_SIZE, DETAIL_PREVIEW_SCALE } from '../layout'
 import type { IconEntry, IconFamily } from '../types'

@@ -8,7 +8,7 @@ import {
   useRef,
   useState,
 } from 'react'
-import { CATEGORY_LABELS, VARIANT_LABELS } from '../constants'
+import { CATEGORY_LABELS, VARIANT_LABELS } from '../../../shared/icon-taxonomy'
 import { useMeasuredElement } from '../hooks/use-measured-element'
 import {
   CATEGORY_HEADER_HEIGHT,

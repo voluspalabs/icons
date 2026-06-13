@@ -1,42 +1,15 @@
 import type { JSX } from 'react'
 
+export type {
+  IconCategory,
+  IconCategoryId,
+  IconVariant,
+} from '../../shared/icon-taxonomy'
+
 export type IconComponent = (props: JSX.IntrinsicElements['svg']) => JSX.Element
 
 export type IconModule = Record<string, IconComponent>
 export type IconLoader = () => Promise<IconModule>
-
-export type IconVariant =
-  | 'contrast'
-  | 'duo-solid'
-  | 'duo-stroke'
-  | 'other'
-  | 'solid'
-  | 'stroke'
-
-export type IconCategoryId =
-  | 'ai'
-  | 'brands'
-  | 'communication'
-  | 'commerce'
-  | 'data'
-  | 'development'
-  | 'devices'
-  | 'editing'
-  | 'files'
-  | 'health'
-  | 'media'
-  | 'navigation'
-  | 'security'
-  | 'transport'
-  | 'ui'
-  | 'users'
-  | 'weather'
-
-export type IconCategory = {
-  description: string
-  id: IconCategoryId
-  label: string
-}
 
 export type IconEntry = {
   baseSlug: string

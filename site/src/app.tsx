@@ -7,16 +7,17 @@ import {
   useRef,
   useState,
 } from 'react'
-import { CATALOG, matchesSearch, normalizeSearch, TOTAL_ICONS } from './catalog'
+import {
+  ICON_CATEGORIES,
+  matchesSearch,
+  normalizeSearch,
+  VARIANT_ORDER,
+} from '../../shared/icon-taxonomy'
+import { CATALOG, TOTAL_ICONS } from './catalog'
 import { Controls } from './components/controls'
 import { IconDetail } from './components/icon-detail'
 import { IconResults } from './components/results'
-import {
-  COPY_STATUS_DURATION_MS,
-  DEFAULT_ICON_SIZE,
-  ICON_CATEGORIES,
-  VARIANT_ORDER,
-} from './constants'
+import { COPY_STATUS_DURATION_MS, DEFAULT_ICON_SIZE } from './constants'
 import type {
   IconCategoryId,
   IconDensity,

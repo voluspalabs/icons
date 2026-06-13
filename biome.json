@@ -7,8 +7,21 @@
       "!dist",
       "!node_modules",
       "!site/dist",
+      "!site/public",
       "!src/*.tsx",
       "!src/index.ts"
     ]
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["api/**", "scripts/**"],
+      "linter": {
+        "rules": {
+          "style": { "noMagicNumbers": "off" },
+          "performance": { "useTopLevelRegex": "off" },
+          "nursery": { "useRegexpExec": "off" }
+        }
+      }
+    }
+  ]
 }
