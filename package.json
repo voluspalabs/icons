@@ -24,7 +24,7 @@
     "oxlint": "^1.76.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "typescript": "^7.0.2",
+    "typescript": "^6.0.3",
     "ultracite": "^7.9.4",
     "vite": "^8.2.0",
     "zod": "^4.4.3"
