@@ -36,7 +36,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  const name = normalizeName(firstValue(req.query.name));
+  const name = normalizeName(firstValue(req.query["name"]));
   if (!name) {
     res.status(400).json({ error: 'Missing required "name" query parameter.' });
     return;
@@ -51,7 +51,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  const format = (firstValue(req.query.format) ?? "json").toLowerCase();
+  const format = (firstValue(req.query["format"]) ?? "json").toLowerCase();
   res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
 
   if (format === "svg") {

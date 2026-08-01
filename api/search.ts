@@ -20,14 +20,15 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
     return;
   }
 
-  const query = firstValue(req.query.q) ?? firstValue(req.query.query) ?? "";
-  const limitRaw = firstValue(req.query.limit);
+  const query =
+    firstValue(req.query["q"]) ?? firstValue(req.query["query"]) ?? "";
+  const limitRaw = firstValue(req.query["limit"]);
   const limit = limitRaw ? Math.trunc(Number(limitRaw)) : undefined;
 
   const result = searchIcons(query, {
-    category: firstValue(req.query.category),
+    category: firstValue(req.query["category"]),
     limit: Number.isFinite(limit) ? limit : undefined,
-    variant: firstValue(req.query.variant),
+    variant: firstValue(req.query["variant"]),
   });
 
   res.status(200).json({

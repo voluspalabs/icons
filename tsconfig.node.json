@@ -1,0 +1,22 @@
+{
+  // Server-side program: Vercel functions, build scripts, and the Vite config.
+  // Kept separate from tsconfig.site.json so Node's globals never leak into the
+  // browser code — `setTimeout` returning `Timeout` instead of `number` is the
+  // classic symptom of merging the two.
+  //
+  // scripts/smoke-types.ts is excluded on purpose: it resolves
+  // `@voluspalabs/icons/*` against the built `dist`, and `check-exports` runs it
+  // with its own flags after a build.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["api", "scripts", "shared", "vite.config.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "site/dist",
+    "scripts/smoke-types.ts",
+    "scripts/generate-index.mjs"
+  ]
+}

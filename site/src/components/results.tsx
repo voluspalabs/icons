@@ -5,7 +5,8 @@ import { CATEGORY_LABELS, VARIANT_LABELS } from "../../../shared/icon-taxonomy";
 import { useMeasuredElement } from "../hooks/use-measured-element";
 import {
   CATEGORY_HEADER_HEIGHT,
-  GRID_CARD_HEIGHTS,
+  getGridCardHeight,
+  getListRowHeight,
   GRID_MAX_CARD_WIDTHS,
   GRID_MIN_CARD_WIDTHS,
   GRID_VARIANT_ICON_MAX_SIZE,
@@ -14,7 +15,7 @@ import {
   OVERSCAN_DIRECTIONS,
   RESULTS_NARROW_WIDTH,
   RESULTS_OVERSCAN,
-  ROW_HEIGHTS,
+  resultsStyle,
 } from "../layout";
 import type {
   IconCategoryId,
@@ -23,7 +24,9 @@ import type {
   IconFamily,
   IconViewMode,
 } from "../types";
+import { PiAlertTriangleStroke, PiArrowTurnDownRightStroke } from "../ui-icons";
 import { IconGlyph } from "./icon-glyph";
+import { Tick } from "./tick";
 
 interface IconGroup {
   categoryId: IconCategoryId;
@@ -81,19 +84,21 @@ const getColumnCount = (width: number, density: IconDensity) => {
 const buildVirtualLayout = ({
   density,
   groups,
+  iconSize,
   viewMode,
   width,
 }: {
   density: IconDensity;
   groups: IconGroup[];
+  iconSize: number;
   viewMode: IconViewMode;
   width: number;
 }): LayoutResult => {
   const isNarrow = width > 0 && width < RESULTS_NARROW_WIDTH;
-  const listRowHeight = isNarrow
-    ? ROW_HEIGHTS.narrow[density]
-    : ROW_HEIGHTS.wide[density];
-  const gridRowHeight = GRID_CARD_HEIGHTS[density];
+  // Row height tracks the glyph size, so the reserved height and the painted
+  // height stay equal across the whole 20–48px range.
+  const listRowHeight = getListRowHeight(density, iconSize, isNarrow);
+  const gridRowHeight = getGridCardHeight(density, iconSize);
   const columns = viewMode === "grid" ? getColumnCount(width, density) : 1;
   const items: VirtualItem[] = [];
   let offset = 0;
@@ -239,6 +244,13 @@ const FamilyCard = ({
   const preferredEntry =
     family.variants.find((entry) => isSelected(entry)) ?? family.variants[0];
 
+  // Families are built with at least one variant and empty ones are filtered
+  // out upstream, but the index access can't prove that — bail rather than
+  // assert, so a future filter change degrades instead of throwing.
+  if (!preferredEntry) {
+    return null;
+  }
+
   return (
     <article className="family-card">
       <button
@@ -356,13 +368,14 @@ export const IconResults = ({
       buildVirtualLayout({
         density,
         groups,
+        iconSize,
         viewMode,
         width: size.width,
       }),
-    [density, groups, size.width, viewMode]
+    [density, groups, iconSize, size.width, viewMode]
   );
   const visiblePadding =
-    Math.max(size.height, GRID_CARD_HEIGHTS[density]) *
+    Math.max(size.height, getGridCardHeight(density, iconSize)) *
     RESULTS_OVERSCAN *
     OVERSCAN_DIRECTIONS;
   const visibleStart = Math.max(0, scrollTop - visiblePadding);
@@ -421,9 +434,12 @@ export const IconResults = ({
   return (
     <section aria-labelledby="results-title" className="results-panel">
       <div className="results-heading">
-        <h1 id="results-title">Icons</h1>
-        <span>
-          {visibleFamilyCount.toLocaleString()} families /{" "}
+        <h1 id="results-title">
+          <Tick icon={PiArrowTurnDownRightStroke} />
+          Icons
+        </h1>
+        <span className="results-count">
+          {visibleFamilyCount.toLocaleString()} fam /{" "}
           {visibleIconCount.toLocaleString()} icons
         </span>
       </div>
@@ -433,7 +449,17 @@ export const IconResults = ({
         key={resetKey}
         onScroll={handleScroll}
         ref={containerRef}
+        style={resultsStyle(density, iconSize)}
       >
+        {layout.items.length === 0 ? (
+          <p className="empty-state">
+            <span className="mono-label">
+              <Tick icon={PiAlertTriangleStroke} /> No matches
+            </span>
+            Nothing matches the current search, category, and variant filters.
+          </p>
+        ) : null}
+
         <ul className="results-spacer" style={{ height: layout.totalHeight }}>
           {visibleItems.map((item) => {
             const style = {

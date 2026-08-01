@@ -52,12 +52,12 @@ const PACKAGE_NAME = "@voluspalabs/icons";
 const WRITE_CONCURRENCY = 256;
 
 const resolveSiteUrl = () => {
-  const explicit = process.env.LLM_SITE_URL;
+  const explicit = process.env["LLM_SITE_URL"];
   if (explicit) {
     return explicit.replace(/\/$/u, "");
   }
 
-  const vercel = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  const vercel = process.env["VERCEL_PROJECT_PRODUCTION_URL"];
   if (vercel) {
     return `https://${vercel}`;
   }
@@ -241,7 +241,7 @@ const run = async () => {
     package: PACKAGE_NAME,
     total: Object.keys(svgs).length,
     variants: VARIANT_ORDER,
-    version: process.env.npm_package_version ?? "0.0.0",
+    version: process.env["npm_package_version"] ?? "0.0.0",
   };
 
   await writeFile(

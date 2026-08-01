@@ -3,7 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Voluspa Icons</title>
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#e30052" />
+    <title>Voluspa Icons — 4,000+ React SVG icons</title>
+    <meta
+      name="description"
+      content="Browse, search, and copy every icon in @voluspalabs/icons. Six variants, React components, raw SVG, and an MCP endpoint for agents."
+    />
+    <link rel="canonical" href="https://icons.voluspa.io/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Voluspa Icons" />
+    <meta
+      property="og:description"
+      content="Browse, search, and copy every icon in @voluspalabs/icons."
+    />
+    <script>
+      // Applied before first paint so a dark-mode reload never flashes white.
+      // Mirrors the storage key and semantics of site/src/hooks/use-theme.ts.
+      try {
+        var stored = localStorage.getItem("voluspa-icons-theme");
+        if (stored === "light" || stored === "dark") {
+          document.documentElement.setAttribute("data-theme", stored);
+        }
+      } catch (error) {
+        /* Blocked storage — fall through to the system preference. */
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -17,7 +17,9 @@ import { CATALOG, TOTAL_ICONS } from "./catalog";
 import { Controls } from "./components/controls";
 import { IconDetail } from "./components/icon-detail";
 import { IconResults } from "./components/results";
+import { Tick } from "./components/tick";
 import { COPY_STATUS_DURATION_MS, DEFAULT_ICON_SIZE } from "./constants";
+import { useTheme } from "./hooks/use-theme";
 import type {
   IconCategoryId,
   IconDensity,
@@ -26,8 +28,15 @@ import type {
   IconVariant,
   IconViewMode,
 } from "./types";
+import {
+  PiExternalLinkSquareStroke,
+  PiFileCodeStroke,
+  PiNpmLogoSymbolStroke,
+} from "./ui-icons";
 
 type CategoryFilter = IconCategoryId | "all";
+
+const CORNERS = ["tl", "tr", "bl", "br"] as const;
 
 const groupFamilies = (families: IconFamily[]) => {
   const groups: { categoryId: IconCategoryId; families: IconFamily[] }[] = [];
@@ -63,6 +72,7 @@ export const App = () => {
   );
   const [copiedLabel, setCopiedLabel] = useState("");
   const copiedTimer = useRef<number | null>(null);
+  const { choice: theme, cycleTheme } = useTheme();
   const normalizedQuery = normalizeSearch(deferredQuery);
 
   const filteredFamilies = useMemo(
@@ -144,42 +154,89 @@ export const App = () => {
   }, []);
 
   return (
-    <main className="app-shell">
-      <Controls
-        activeCategory={activeCategory}
-        activeVariants={activeVariants}
-        density={density}
-        iconSize={iconSize}
-        onCategoryChange={setActiveCategory}
-        onDensityChange={setDensity}
-        onIconSizeChange={setIconSize}
-        onQueryChange={setQuery}
-        onToggleVariant={toggleVariant}
-        onViewModeChange={setViewMode}
-        query={query}
-        totalFamilies={CATALOG.length}
-        totalIcons={TOTAL_ICONS}
-        viewMode={viewMode}
-      />
+    <>
+      <main className="app-shell">
+        {CORNERS.map((corner) => (
+          <span
+            aria-hidden="true"
+            className={`corner is-${corner}`}
+            key={corner}
+          />
+        ))}
 
-      <div className="workspace">
-        <IconResults
+        <Controls
+          activeCategory={activeCategory}
+          activeVariants={activeVariants}
           density={density}
-          groups={groupedFamilies}
           iconSize={iconSize}
-          onSelect={setSelected}
-          selected={visibleSelected}
+          onCategoryChange={setActiveCategory}
+          onDensityChange={setDensity}
+          onIconSizeChange={setIconSize}
+          onQueryChange={setQuery}
+          onThemeToggle={cycleTheme}
+          onToggleVariant={toggleVariant}
+          onViewModeChange={setViewMode}
+          query={query}
+          theme={theme}
+          totalFamilies={CATALOG.length}
+          totalIcons={TOTAL_ICONS}
           viewMode={viewMode}
         />
-        <IconDetail
-          copiedLabel={copiedLabel}
-          family={selectedFamily}
-          iconSize={iconSize}
-          onCopy={copyText}
-          onSelect={setSelected}
-          selected={visibleSelected}
-        />
-      </div>
-    </main>
+
+        <div className="workspace">
+          <IconResults
+            density={density}
+            groups={groupedFamilies}
+            iconSize={iconSize}
+            onSelect={setSelected}
+            selected={visibleSelected}
+            viewMode={viewMode}
+          />
+          <IconDetail
+            copiedLabel={copiedLabel}
+            family={selectedFamily}
+            iconSize={iconSize}
+            onCopy={copyText}
+            onSelect={setSelected}
+            selected={visibleSelected}
+          />
+        </div>
+
+        <footer className="appfoot">
+          <a
+            className="foot-cell is-link mono-label"
+            href="https://www.npmjs.com/package/@voluspalabs/icons"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <Tick icon={PiNpmLogoSymbolStroke} />
+            @voluspalabs/icons
+          </a>
+          <a
+            className="foot-cell is-link mono-label"
+            href="/llms.txt"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <Tick icon={PiFileCodeStroke} />
+            llms.txt · MCP · /api/search
+          </a>
+          <a
+            className="foot-cell is-link mono-label"
+            href="https://unakomi.com"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <Tick icon={PiExternalLinkSquareStroke} />
+            unakomi.com
+          </a>
+          <span aria-hidden="true" className="hazard" />
+        </footer>
+      </main>
+
+      <aside aria-hidden="true" className="rail">
+        <span>Voluspa · Icons · Essentially Everywhere</span>
+      </aside>
+    </>
   );
 };

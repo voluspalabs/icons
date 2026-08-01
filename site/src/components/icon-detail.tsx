@@ -11,10 +11,12 @@ import {
   PiCodeStroke,
   PiCopyDefaultStroke,
   PiFileCodeStroke,
+  PiFocusTargetStroke,
   PiTagStroke,
 } from "../ui-icons";
 import { CopyButton } from "./copy-button";
 import { IconGlyph } from "./icon-glyph";
+import { Tick } from "./tick";
 
 interface IconDetailProps {
   copiedLabel: string;
@@ -36,7 +38,12 @@ export const IconDetail = ({
   if (!selected) {
     return (
       <aside aria-label="Selected icon" className="detail-panel">
-        <p className="empty-state">No icons match the current filters.</p>
+        <p className="empty-state">
+          <span className="mono-label">
+            <Tick icon={PiFocusTargetStroke} /> Nothing selected
+          </span>
+          Pick an icon to see its import, JSX, and raw SVG.
+        </p>
       </aside>
     );
   }

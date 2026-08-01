@@ -5,6 +5,7 @@ import {
 } from "../../../shared/icon-taxonomy";
 import { CATEGORY_STATS } from "../catalog";
 import { DEFAULT_ICON_SIZE, ICON_SIZE_MAX, ICON_SIZE_MIN } from "../constants";
+import type { ThemeChoice } from "../hooks/use-theme";
 import type {
   IconCategoryId,
   IconDensity,
@@ -12,13 +13,18 @@ import type {
   IconViewMode,
 } from "../types";
 import {
+  PiArrowRightStroke,
+  PiArrowTurnDownRightStroke,
   PiCrossCircleStroke,
   PiFilterFunnelStroke,
   PiGithubStroke,
   PiGrid01Stroke,
   PiListDefaultStroke,
+  PiMoonStroke,
   PiSearchBigStroke,
+  PiSunStroke,
 } from "../ui-icons";
+import { Tick } from "./tick";
 
 type CategoryFilter = IconCategoryId | "all";
 
@@ -31,9 +37,11 @@ interface ControlsProps {
   onDensityChange: (density: IconDensity) => void;
   onIconSizeChange: (size: number) => void;
   onQueryChange: (query: string) => void;
+  onThemeToggle: () => void;
   onToggleVariant: (variant: IconVariant) => void;
   onViewModeChange: (viewMode: IconViewMode) => void;
   query: string;
+  theme: ThemeChoice;
   totalFamilies: number;
   totalIcons: number;
   viewMode: IconViewMode;
@@ -44,10 +52,33 @@ const VIEW_OPTIONS = [
   { icon: PiListDefaultStroke, label: "List", mode: "list" },
 ] as const;
 
+const THEME_LABELS: Record<ThemeChoice, string> = {
+  dark: "Dark",
+  light: "Light",
+  system: "Auto",
+};
+
 const THOUSAND = 1000;
 
 const compactNumber = (value: number) =>
   value >= THOUSAND ? `${(value / THOUSAND).toFixed(1)}k` : `${value}`;
+
+/**
+ * Unakomi group logomark. Voluspa is an Unakomi company, so the parent mark
+ * carries the masthead and the wordmark beside it names the product.
+ */
+const BrandMark = () => (
+  <svg
+    aria-hidden="true"
+    className="brand-mark"
+    fill="currentColor"
+    viewBox="0 0 198 92"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M68.64 2.11V57.03C68.64 61.49 64.81 65.48 58.74 65.48H26.8V2.11H2.9V89.65H64.55V71.23C64.55 67.47 68.51 62.31 74.71 62.31H93.85V2.11H68.64Z" />
+    <path d="M176.88 29.34C171.47 29.34 166.85 26.29 166.85 20.3V2.11H103.36V89.65H129.1V26.05H160.51C165.4 26.05 171.2 29.1 171.2 35.09V89.65H194.96V29.45H176.88V29.34Z" />
+  </svg>
+);
 
 export const Controls = ({
   activeCategory,
@@ -58,9 +89,11 @@ export const Controls = ({
   onDensityChange,
   onIconSizeChange,
   onQueryChange,
+  onThemeToggle,
   onToggleVariant,
   onViewModeChange,
   query,
+  theme,
   totalFamilies,
   totalIcons,
   viewMode,
@@ -68,51 +101,72 @@ export const Controls = ({
   <>
     <header className="topbar">
       <div className="brand">
-        <div className="brand-head">
-          <p className="eyebrow">@voluspalabs/icons</p>
-          <a
-            aria-label="View @voluspalabs/icons on GitHub"
-            className="github-link"
-            href="https://github.com/voluspalabs/icons"
-            rel="noreferrer"
-            target="_blank"
-          >
-            <PiGithubStroke aria-hidden="true" />
-            <span>GitHub</span>
-          </a>
-        </div>
-        <p className="inventory">
-          <strong>{totalIcons.toLocaleString()}</strong> icons
-          <span className="inventory-sep">across</span>
-          <strong>{totalFamilies.toLocaleString()}</strong> families
-        </p>
+        <BrandMark />
+        <p className="wordmark">Voluspa Icons</p>
       </div>
 
-      <div className="search-control">
-        <div className="search-box">
-          <PiSearchBigStroke aria-hidden="true" className="search-icon" />
-          <input
-            aria-label="Search icons by name, family, or variant"
-            autoComplete="off"
-            id="icon-search"
-            onChange={(event) => onQueryChange(event.target.value)}
-            placeholder="Search 4,000+ icons — alert triangle, github, duo stroke…"
-            type="search"
-            value={query}
-          />
-          {query ? (
-            <button
-              aria-label="Clear search"
-              className="clear-search"
-              onClick={() => onQueryChange("")}
-              type="button"
-            >
-              <PiCrossCircleStroke aria-hidden="true" />
-            </button>
-          ) : null}
-        </div>
-      </div>
+      <p className="inventory mono-label">
+        <Tick icon={PiArrowTurnDownRightStroke} />
+        <b>{totalIcons.toLocaleString()}</b> icons ·{" "}
+        <b>{totalFamilies.toLocaleString()}</b> families ·{" "}
+        {VARIANT_ORDER.length} variants
+      </p>
+
+      <button
+        aria-label={`Theme: ${THEME_LABELS[theme]}. Switch theme.`}
+        className="theme-toggle"
+        onClick={onThemeToggle}
+        type="button"
+      >
+        {theme === "dark" ? (
+          <PiMoonStroke aria-hidden="true" />
+        ) : (
+          <PiSunStroke aria-hidden="true" />
+        )}
+        <span>{THEME_LABELS[theme]}</span>
+      </button>
+
+      <a
+        aria-label="View @voluspalabs/icons on GitHub"
+        className="github-link"
+        href="https://github.com/voluspalabs/icons"
+        rel="noreferrer"
+        target="_blank"
+      >
+        <PiGithubStroke aria-hidden="true" />
+        <span>GitHub</span>
+      </a>
     </header>
+
+    <div className="search-row">
+      <span className="search-label mono-label">
+        <Tick icon={PiArrowRightStroke} />
+        Search
+      </span>
+
+      <div className="search-box">
+        <PiSearchBigStroke aria-hidden="true" className="search-icon" />
+        <input
+          aria-label="Search icons by name, family, or variant"
+          autoComplete="off"
+          id="icon-search"
+          onChange={(event) => onQueryChange(event.target.value)}
+          placeholder="alert triangle, github, duo stroke…"
+          type="search"
+          value={query}
+        />
+        {query ? (
+          <button
+            aria-label="Clear search"
+            className="clear-search"
+            onClick={() => onQueryChange("")}
+            type="button"
+          >
+            <PiCrossCircleStroke aria-hidden="true" />
+          </button>
+        ) : null}
+      </div>
+    </div>
 
     <nav aria-label="Filter by category" className="category-bar">
       <button
@@ -121,7 +175,7 @@ export const Controls = ({
         onClick={() => onCategoryChange("all")}
         type="button"
       >
-        <span className="pill-label">All sections</span>
+        <span>All</span>
         <span className="pill-count">{compactNumber(totalFamilies)}</span>
       </button>
 
@@ -141,7 +195,7 @@ export const Controls = ({
             title={category.description}
             type="button"
           >
-            <span className="pill-label">{category.label}</span>
+            <span>{category.label}</span>
             <span className="pill-count">{compactNumber(stat.families)}</span>
           </button>
         );
@@ -196,14 +250,16 @@ export const Controls = ({
               onClick={() => onDensityChange(mode)}
               type="button"
             >
-              {mode === "compact" ? "Compact" : "Comfortable"}
+              {mode === "compact" ? "Compact" : "Comfort"}
             </button>
           ))}
         </div>
       </div>
 
       <div className="control-group size-control">
-        <label htmlFor="icon-size">Size</label>
+        <label className="control-label" htmlFor="icon-size">
+          Size
+        </label>
         <input
           id="icon-size"
           max={ICON_SIZE_MAX}

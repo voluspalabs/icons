@@ -1,0 +1,11 @@
+{
+  // The root tsconfig only includes `src` (the generated icon components), so
+  // nothing under site/ or shared/ was ever type-checked. Browser program:
+  // vite/client supplies import.meta.glob, import.meta.hot, and CSS modules.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["vite/client"]
+  },
+  "include": ["site/src", "shared"],
+  "exclude": ["node_modules", "dist", "site/dist"]
+}
