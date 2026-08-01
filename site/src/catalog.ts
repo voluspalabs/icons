@@ -9,34 +9,39 @@ import {
   toDisplayName,
   VARIANT_LABELS,
   VARIANT_ORDER,
-} from '../../shared/icon-taxonomy'
-import type { IconCategoryId, IconEntry, IconFamily, IconLoader } from './types'
+} from "../../shared/icon-taxonomy";
+import type {
+  IconCategoryId,
+  IconEntry,
+  IconFamily,
+  IconLoader,
+} from "./types";
 
-const TSX_EXTENSION_PATTERN = /\.tsx$/
+const TSX_EXTENSION_PATTERN = /\.tsx$/u;
 
-export const iconLoaders = import.meta.glob('../../src/pi-*.tsx') as Record<
+export const iconLoaders = import.meta.glob("../../src/pi-*.tsx") as Record<
   string,
   IconLoader
->
+>;
 
-function buildCatalog() {
+const buildCatalog = () => {
   const entries = Object.keys(iconLoaders)
     .map((modulePath) => {
       const fileName = modulePath
-        .split('/')
+        .split("/")
         .at(-1)
-        ?.replace(TSX_EXTENSION_PATTERN, '')
+        ?.replace(TSX_EXTENSION_PATTERN, "");
 
       if (!fileName) {
-        return null
+        return null;
       }
 
-      const variant = getVariant(fileName)
-      const baseSlug = removeVariant(fileName, variant)
-      const categoryId = getCategoryId(baseSlug)
-      const componentName = toComponentName(fileName)
-      const displayName = toDisplayName(baseSlug)
-      const importPath = `@voluspalabs/icons/${fileName}`
+      const variant = getVariant(fileName);
+      const baseSlug = removeVariant(fileName, variant);
+      const categoryId = getCategoryId(baseSlug);
+      const componentName = toComponentName(fileName);
+      const displayName = toDisplayName(baseSlug);
+      const importPath = `@voluspalabs/icons/${fileName}`;
       const searchText = normalizeSearch(
         [
           fileName,
@@ -47,8 +52,8 @@ function buildCatalog() {
           CATEGORY_LABELS[categoryId],
           variant,
           VARIANT_LABELS[variant],
-        ].join(' '),
-      )
+        ].join(" ")
+      );
 
       return {
         baseSlug,
@@ -61,21 +66,21 @@ function buildCatalog() {
         modulePath,
         searchText,
         variant,
-      } satisfies IconEntry
+      } satisfies IconEntry;
     })
     .filter((entry): entry is IconEntry => entry !== null)
-    .sort((left, right) => left.fileName.localeCompare(right.fileName))
+    .toSorted((left, right) => left.fileName.localeCompare(right.fileName));
 
-  const families = new Map<string, IconFamily>()
+  const families = new Map<string, IconFamily>();
 
   for (const entry of entries) {
-    const family = families.get(entry.baseSlug)
+    const family = families.get(entry.baseSlug);
 
     if (family) {
-      family.variants.push(entry)
-      family.searchText = `${family.searchText} ${entry.searchText}`
-      family.totalVariants += 1
-      continue
+      family.variants.push(entry);
+      family.searchText = `${family.searchText} ${entry.searchText}`;
+      family.totalVariants += 1;
+      continue;
     }
 
     families.set(entry.baseSlug, {
@@ -85,54 +90,54 @@ function buildCatalog() {
       searchText: entry.searchText,
       totalVariants: 1,
       variants: [entry],
-    })
+    });
   }
 
   return [...families.values()]
     .map((family) => ({
       ...family,
       searchText: normalizeSearch(family.searchText),
-      variants: family.variants.sort(
+      variants: family.variants.toSorted(
         (left, right) =>
           VARIANT_ORDER.indexOf(left.variant) -
             VARIANT_ORDER.indexOf(right.variant) ||
-          left.fileName.localeCompare(right.fileName),
+          left.fileName.localeCompare(right.fileName)
       ),
     }))
-    .sort(
+    .toSorted(
       (left, right) =>
         ICON_CATEGORIES.findIndex(
-          (category) => category.id === left.categoryId,
+          (category) => category.id === left.categoryId
         ) -
           ICON_CATEGORIES.findIndex(
-            (category) => category.id === right.categoryId,
-          ) || left.displayName.localeCompare(right.displayName),
-    )
-}
+            (category) => category.id === right.categoryId
+          ) || left.displayName.localeCompare(right.displayName)
+    );
+};
 
-export const CATALOG = buildCatalog()
+export const CATALOG = buildCatalog();
 export const TOTAL_ICONS = CATALOG.reduce(
   (total, family) => total + family.totalVariants,
-  0,
-)
+  0
+);
 
-export type CategoryStat = {
-  families: number
-  icons: number
+export interface CategoryStat {
+  families: number;
+  icons: number;
 }
 
-function buildCategoryStats() {
-  const stats = new Map<IconCategoryId, CategoryStat>()
+const buildCategoryStats = () => {
+  const stats = new Map<IconCategoryId, CategoryStat>();
 
   for (const family of CATALOG) {
-    const current = stats.get(family.categoryId) ?? { families: 0, icons: 0 }
+    const current = stats.get(family.categoryId) ?? { families: 0, icons: 0 };
 
-    current.families += 1
-    current.icons += family.totalVariants
-    stats.set(family.categoryId, current)
+    current.families += 1;
+    current.icons += family.totalVariants;
+    stats.set(family.categoryId, current);
   }
 
-  return stats
-}
+  return stats;
+};
 
-export const CATEGORY_STATS = buildCategoryStats()
+export const CATEGORY_STATS = buildCategoryStats();

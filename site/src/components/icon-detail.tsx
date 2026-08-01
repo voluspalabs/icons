@@ -1,79 +1,79 @@
-/* biome-ignore-all lint/nursery/noJsxPropsBind: Copy snippets are derived per selected icon. */
-import { createElement } from 'react'
-import { flushSync } from 'react-dom'
-import { createRoot } from 'react-dom/client'
-import { VARIANT_LABELS } from '../../../shared/icon-taxonomy'
-import { loadIcon } from '../icon-loader'
-import { DETAIL_PREVIEW_MIN_SIZE, DETAIL_PREVIEW_SCALE } from '../layout'
-import type { IconEntry, IconFamily } from '../types'
+import { createElement } from "react";
+import { flushSync } from "react-dom";
+import { createRoot } from "react-dom/client";
+
+import { VARIANT_LABELS } from "../../../shared/icon-taxonomy";
+import { loadIcon } from "../icon-loader";
+import { DETAIL_PREVIEW_MIN_SIZE, DETAIL_PREVIEW_SCALE } from "../layout";
+import type { IconEntry, IconFamily } from "../types";
 import {
   PiCheckTickCircleStroke,
   PiCodeStroke,
   PiCopyDefaultStroke,
   PiFileCodeStroke,
   PiTagStroke,
-} from '../ui-icons'
-import { CopyButton } from './copy-button'
-import { IconGlyph } from './icon-glyph'
+} from "../ui-icons";
+import { CopyButton } from "./copy-button";
+import { IconGlyph } from "./icon-glyph";
 
-type IconDetailProps = {
-  copiedLabel: string
-  family: IconFamily | null
-  iconSize: number
-  onCopy: (text: string, label: string) => Promise<void>
-  onSelect: (entry: IconEntry) => void
-  selected: IconEntry | null
+interface IconDetailProps {
+  copiedLabel: string;
+  family: IconFamily | null;
+  iconSize: number;
+  onCopy: (text: string, label: string) => Promise<void>;
+  onSelect: (entry: IconEntry) => void;
+  selected: IconEntry | null;
 }
 
-export function IconDetail({
+export const IconDetail = ({
   copiedLabel,
   family,
   iconSize,
   onCopy,
   onSelect,
   selected,
-}: IconDetailProps) {
+}: IconDetailProps) => {
   if (!selected) {
     return (
       <aside aria-label="Selected icon" className="detail-panel">
         <p className="empty-state">No icons match the current filters.</p>
       </aside>
-    )
+    );
   }
 
-  const namedImport = `import { ${selected.componentName} } from '@voluspalabs/icons'`
-  const subpathImport = `import { ${selected.componentName} } from '${selected.importPath}'`
-  const jsxUsage = `<${selected.componentName} aria-hidden="true" className="icon" />`
-  const componentSnippet = `${namedImport}\n\n${jsxUsage}`
+  const namedImport = `import { ${selected.componentName} } from '@voluspalabs/icons'`;
+  const subpathImport = `import { ${selected.componentName} } from '${selected.importPath}'`;
+  const jsxUsage = `<${selected.componentName} aria-hidden="true" className="icon" />`;
+  const componentSnippet = `${namedImport}\n\n${jsxUsage}`;
   const previewSize = Math.max(
     DETAIL_PREVIEW_MIN_SIZE,
-    iconSize * DETAIL_PREVIEW_SCALE,
-  )
-  const variants = family?.variants ?? [selected]
+    iconSize * DETAIL_PREVIEW_SCALE
+  );
+  const variants = family?.variants ?? [selected];
 
   const copyRawSvg = async () => {
-    const Icon = await loadIcon(selected)
-    const host = document.createElement('div')
-    host.hidden = true
-    document.body.append(host)
+    const Icon = await loadIcon(selected);
+    const host = document.createElement("div");
+    host.hidden = true;
+    document.body.append(host);
 
-    const root = createRoot(host)
+    const root = createRoot(host);
     flushSync(() => {
       root.render(
         createElement(Icon, {
-          'aria-hidden': 'true',
-          className: 'icon',
-          focusable: 'false',
-        }),
-      )
-    })
+          "aria-hidden": "true",
+          className: "icon",
+          focusable: "false",
+        })
+      );
+    });
 
-    const svg = host.querySelector('svg')?.outerHTML ?? ''
-    root.unmount()
-    host.remove()
+    const svg = host.querySelector("svg")?.outerHTML ?? "";
+    root.unmount();
+    host.remove();
 
-    await onCopy(svg, 'SVG copied')
-  }
+    await onCopy(svg, "SVG copied");
+  };
 
   return (
     <aside aria-label="Selected icon" className="detail-panel">
@@ -111,7 +111,7 @@ export function IconDetail({
         <CopyButton
           icon={PiCodeStroke}
           label={`Copy component snippet for ${selected.componentName}`}
-          onCopy={() => onCopy(componentSnippet, 'Component copied')}
+          onCopy={() => onCopy(componentSnippet, "Component copied")}
           variant="primary"
         >
           Component
@@ -119,14 +119,14 @@ export function IconDetail({
         <CopyButton
           icon={PiCopyDefaultStroke}
           label={`Copy named import for ${selected.componentName}`}
-          onCopy={() => onCopy(namedImport, 'Import copied')}
+          onCopy={() => onCopy(namedImport, "Import copied")}
         >
           Import
         </CopyButton>
         <CopyButton
           icon={PiTagStroke}
           label={`Copy subpath import for ${selected.componentName}`}
-          onCopy={() => onCopy(subpathImport, 'Subpath copied')}
+          onCopy={() => onCopy(subpathImport, "Subpath copied")}
         >
           Subpath
         </CopyButton>
@@ -152,5 +152,5 @@ export function IconDetail({
         ) : null}
       </p>
     </aside>
-  )
-}
+  );
+};

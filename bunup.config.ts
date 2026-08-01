@@ -1,30 +1,30 @@
-import { defineConfig } from 'bunup'
+import { defineConfig } from "bunup";
 
 export default defineConfig({
-  entry: ['src/index.ts', 'src/*.tsx'],
-  format: 'esm',
+  clean: true,
+  define: {
+    "process.env.NODE_ENV": '"production"',
+  },
+  drop: ["debugger"],
   dts: {
     inferTypes: true,
     splitting: true,
   },
-  sourcemap: 'linked',
-  clean: true,
-  splitting: true,
-  target: 'browser',
-  sourceBase: './src',
-  exports: true,
   emitDCEAnnotations: true,
-  drop: ['debugger'],
-  unused: {
-    level: 'error',
-  },
+  entry: ["src/index.ts", "src/*.tsx"],
+  exports: true,
+  format: "esm",
   jsx: {
-    runtime: 'automatic',
-    importSource: 'react',
     development: false,
+    importSource: "react",
+    runtime: "automatic",
     sideEffects: false,
   },
-  define: {
-    'process.env.NODE_ENV': '"production"',
+  sourceBase: "./src",
+  sourcemap: "linked",
+  splitting: true,
+  target: "browser",
+  unused: {
+    level: "error",
   },
-})
+});

@@ -26,11 +26,9 @@ import { PiGithubStroke } from "@voluspalabs/icons/pi-github-stroke";
 
 ## For LLMs / AI agents
 
-Agents can search and fetch icons without cloning this repo. Start at `/llms.txt`
-(served at the site root), which documents everything below.
+Agents can search and fetch icons without cloning this repo. Start at `/llms.txt` (served at the site root), which documents everything below.
 
-- **MCP server (recommended):** `<site>/api/mcp` — Streamable HTTP, tools `search_icons`,
-  `get_icon`, `list_categories`. Example client config:
+- **MCP server (recommended):** `<site>/api/mcp` — Streamable HTTP, tools `search_icons`, `get_icon`, `list_categories`. Example client config:
 
   ```json
   { "mcpServers": { "voluspa-icons": { "url": "https://<site>/api/mcp" } } }

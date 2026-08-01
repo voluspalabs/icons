@@ -1,57 +1,64 @@
-import { memo, useEffect, useState } from 'react'
-import { getCachedIcon, loadIcon } from '../icon-loader'
-import type { IconComponent, IconEntry } from '../types'
+import { memo, useEffect, useState } from "react";
 
-type IconGlyphProps = {
-  entry: IconEntry
-  size: number
+import { getCachedIcon, loadIcon } from "../icon-loader";
+import type { IconComponent, IconEntry } from "../types";
+
+interface IconGlyphProps {
+  entry: IconEntry;
+  size: number;
 }
 
-type IconGlyphState = {
-  failed: boolean
-  Icon: IconComponent | null
+interface IconGlyphState {
+  failed: boolean;
+  Icon: IconComponent | null;
 }
 
-export const IconGlyph = memo(function IconGlyph({
-  entry,
-  size,
-}: IconGlyphProps) {
-  const [{ Icon, failed }, setGlyphState] = useState<IconGlyphState>(() => ({
-    failed: false,
+const IconGlyphComponent = ({ entry, size }: IconGlyphProps) => {
+  const [glyphState, setGlyphState] = useState<IconGlyphState>(() => ({
     Icon: getCachedIcon(entry),
-  }))
+    failed: false,
+  }));
+  const { Icon, failed } = glyphState;
 
   useEffect(() => {
-    let isCurrent = true
+    let isCurrent = true;
 
-    const cachedIcon = getCachedIcon(entry)
+    const cachedIcon = getCachedIcon(entry);
 
-    setGlyphState({ failed: false, Icon: cachedIcon })
-    loadIcon(entry)
-      .then((loadedIcon) => {
+    // Resetting here is the point: when `entry` changes the glyph must swap to
+    // the new icon's cached value (or its placeholder) before the load settles.
+    // oxlint-disable-next-line react/react-compiler
+    setGlyphState({ Icon: cachedIcon, failed: false });
+
+    const syncIcon = async () => {
+      try {
+        const loadedIcon = await loadIcon(entry);
+
         if (isCurrent) {
-          setGlyphState({ failed: false, Icon: loadedIcon })
+          setGlyphState({ Icon: loadedIcon, failed: false });
         }
-      })
-      .catch(() => {
+      } catch {
         if (isCurrent) {
-          setGlyphState({ failed: true, Icon: null })
+          setGlyphState({ Icon: null, failed: true });
         }
-      })
+      }
+    };
+
+    void syncIcon();
 
     return () => {
-      isCurrent = false
-    }
-  }, [entry])
+      isCurrent = false;
+    };
+  }, [entry]);
 
   if (!Icon) {
     return (
       <span
         aria-hidden="true"
-        className={failed ? 'icon-placeholder is-error' : 'icon-placeholder'}
+        className={failed ? "icon-placeholder is-error" : "icon-placeholder"}
         style={{ height: size, width: size }}
       />
-    )
+    );
   }
 
   return (
@@ -61,5 +68,7 @@ export const IconGlyph = memo(function IconGlyph({
       focusable="false"
       style={{ height: size, width: size }}
     />
-  )
-})
+  );
+};
+
+export const IconGlyph = memo(IconGlyphComponent);
