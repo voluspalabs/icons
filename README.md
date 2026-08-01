@@ -28,7 +28,7 @@ import { PiGithubStroke } from "@voluspalabs/icons/pi-github-stroke";
 
 Agents can search and fetch icons without cloning this repo. Start at `/llms.txt` (served at the site root), which documents everything below.
 
-- **MCP server (recommended):** `<site>/api/mcp` — Streamable HTTP, tools `search_icons`, `get_icon`, `list_categories`. Example client config:
+- **MCP server (recommended):** `<site>/api/mcp` — Streamable HTTP, tools `search_icons`, `get_icon`, `list_categories`. Speaks protocol revision `2026-07-28` (stateless: no `initialize` handshake, no session header) and still serves 2025-era clients (`2025-11-25` and earlier) over the same URL. Example client config:
 
   ```json
   { "mcpServers": { "voluspa-icons": { "url": "https://<site>/api/mcp" } } }

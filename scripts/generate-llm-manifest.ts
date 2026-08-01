@@ -128,6 +128,9 @@ Import: import { PiGithubStroke } from "${PACKAGE_NAME}/pi-github-stroke"
 ## MCP server (recommended for agents)
 
 Streamable HTTP endpoint: ${siteUrl}/api/mcp
+Protocol: revision 2026-07-28 (stateless — no initialize handshake, no Mcp-Session-Id).
+  Call server/discover for supported versions and capabilities. Older clients
+  (2025-11-25 and earlier) keep working on the same URL via the legacy handshake.
 Tools:
 - search_icons({ query, limit?, variant?, category? }) -> compact name list
 - get_icon({ name }) -> raw <svg> + React import + usage snippet
