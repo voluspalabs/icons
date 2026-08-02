@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-6 -59 210 210" fill="#e30052" role="img" aria-labelledby="title">
+  <title id="title">Unakomi</title>
+  <!-- Same two paths as the header's BrandMark (site/src/components/controls.tsx)
+       and env-vault's unakomi-mark.svg. The mark is authored on a 198x92 canvas;
+       the square viewBox above pads it to 210x210 and centres it so a 16px tab
+       slot gets a centred mark instead of a letterboxed sliver. Fill is
+       hardcoded — a favicon has no CSS context for currentColor. -->
+  <path d="M68.64 2.11V57.03C68.64 61.49 64.81 65.48 58.74 65.48H26.8V2.11H2.9V89.65H64.55V71.23C64.55 67.47 68.51 62.31 74.71 62.31H93.85V2.11H68.64Z" />
+  <path d="M176.88 29.34C171.47 29.34 166.85 26.29 166.85 20.3V2.11H103.36V89.65H129.1V26.05H160.51C165.4 26.05 171.2 29.1 171.2 35.09V89.65H194.96V29.45H176.88V29.34Z" />
+</svg>

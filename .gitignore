@@ -1,6 +1,10 @@
 node_modules
 dist
 site/dist
-site/public
+# Everything in site/public is emitted by `bun run generate:llm`, except the
+# brand favicon — a hand-authored static asset that must survive a fresh clone.
+# Ignore the contents, not the directory, so the negation below can apply.
+site/public/*
+!site/public/favicon.svg
 .DS_Store
 *.log

@@ -7,91 +7,23 @@
    rules rather than by elevation, so the whole page reads as one sheet of
    graph paper instead of a stack of floating cards.
 
-   Colour is resolved with light-dark(), so the palette below is declared once
-   and the theme switch only ever flips `color-scheme`.
+   The palette, type scale, tracking scale, row heights, and motion curve are
+   NOT defined here. They live in ./tokens.css, which is generated from the
+   env-vault monorepo so that this gallery and the Env Vault dashboard are
+   provably the same design system rather than two similar-looking ones.
+   This file only contains layout that is specific to the gallery.
+
+   Colour is resolved with light-dark(), so each value is declared once and the
+   theme switch below only ever flips `color-scheme`.
    =========================================================================== */
 
+@import "./tokens.css";
+
 :root {
+  /* The switching mechanism, which the shared token file deliberately leaves
+     to each consumer. Here the default is open: a visitor who has never picked
+     a theme should get the one their OS asked for. */
   color-scheme: light dark;
-
-  /* Neutral ramp — role-indexed, not lightness-indexed: `--n-300` is "hairline"
-     in both themes even though it gets darker rather than lighter. */
-  --n-25: light-dark(#fbfdff, #2a2a2a);
-  --n-50: light-dark(#f6f9fb, #1f2529);
-  --n-75: light-dark(#f3f8fb, #1a2024);
-  --n-100: light-dark(#f1f6f9, #151a1f);
-  --n-200: light-dark(#e9eef1, #1f2529);
-  --n-300: light-dark(#e2eaee, #262e35);
-  --n-400: light-dark(#cad3d8, #3a4248);
-  --n-500: light-dark(#bac1c5, #4b5256);
-  --n-550: light-dark(#99a2a7, #5f6a6f);
-  --n-600: light-dark(#7f8b91, #6f767a);
-  --n-700: light-dark(#6f767a, #7f8b91);
-  --n-800: light-dark(#5f6a6f, #99a2a7);
-  --n-900: light-dark(#4b5256, #bac1c5);
-
-  --bg: light-dark(#ffffff, #0b0b0b);
-  --fg: light-dark(#0b0b0b, #ffffff);
-  --fg-soft: light-dark(#2a2a2a, #e5e5e5);
-  --muted: var(--n-600);
-  --line: var(--n-300);
-  --line-strong: var(--n-400);
-  --surface: var(--n-50);
-  --surface-2: var(--n-100);
-
-  --primary: #e30052;
-  --primary-dark: #c20045;
-  --primary-darker: #9e0038;
-  /* Small text only. #e30052 lands at ~3:1 on #0b0b0b, which is fine for fills
-     and borders but short for the mono microlabels, so dark mode lifts them to
-     #ff1a6e (~5.3:1). Fills keep the flat brand red in both themes. */
-  --primary-ink: light-dark(#c20045, #ff1a6e);
-  --primary-bg: light-dark(#ffe5ee, rgb(227 0 82 / 16%));
-  --primary-bg-strong: light-dark(#ffd6e3, rgb(227 0 82 / 26%));
-  --on-primary: #ffffff;
-
-  --warn: light-dark(#8a6d00, #ffd84d);
-  --warn-bg: light-dark(#fff7d6, rgb(255 216 77 / 14%));
-  --danger: light-dark(#c2333d, #ff6161);
-  --danger-bg: light-dark(#ffe2e2, rgb(255 97 97 / 16%));
-  --hazard: gold;
-
-  --code-bg: light-dark(#0b0b0b, #151a1f);
-  --code-fg: light-dark(#f3f8fb, #e5e5e5);
-
-  --font-sans:
-    "Sora Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    sans-serif;
-  --font-mono:
-    "Geist Mono Variable", ui-monospace, SFMono-Regular, Menlo, Consolas,
-    "Liberation Mono", monospace;
-
-  --t-5xs: 0.7rem;
-  --t-4xs: 0.75rem;
-  --t-3xs: 0.81rem;
-  --t-2xs: 0.86rem;
-  --t-xs: 0.91rem;
-  --t-sm: 0.95rem;
-  --t-md: 1rem;
-  --t-lg: 1.11rem;
-  --t-xl: 1.26rem;
-  --t-2xl: 1.5rem;
-  --t-3xl: 1.875rem;
-
-  --track-tight: -0.025em;
-  --track-wide: 0.025em;
-  --track-wider: 0.05em;
-  --track-widest: 0.1em;
-
-  --row-head: 52px;
-  --row-search: 64px;
-  --row-nav: 40px;
-  --row-controls: 44px;
-  --row-foot: 34px;
-  --rail: 24px;
-
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --dur: 0.14s;
 
   font-family: var(--font-sans);
   font-synthesis: none;
@@ -148,7 +80,7 @@ button {
   font-family: var(--font-mono);
   font-size: var(--t-4xs);
   font-weight: 500;
-  color: var(--muted);
+  color: var(--fg-muted);
   text-transform: uppercase;
   letter-spacing: var(--track-wider);
   white-space: nowrap;
@@ -383,7 +315,7 @@ button {
   left: 16px;
   width: 20px;
   height: 20px;
-  color: var(--muted);
+  color: var(--fg-muted);
   pointer-events: none;
 }
 
@@ -430,7 +362,7 @@ button {
   width: 32px;
   height: 32px;
   padding: 0;
-  color: var(--muted);
+  color: var(--fg-muted);
   transition: color var(--dur) var(--ease);
 }
 
@@ -493,7 +425,7 @@ button {
 
 .pill-count {
   font-variant-numeric: tabular-nums;
-  color: var(--muted);
+  color: var(--fg-muted);
 }
 
 .category-pill[aria-pressed="true"] {
@@ -543,7 +475,7 @@ button {
   font-family: var(--font-mono);
   font-size: var(--t-4xs);
   font-weight: 500;
-  color: var(--muted);
+  color: var(--fg-muted);
   text-transform: uppercase;
   letter-spacing: var(--track-wider);
   white-space: nowrap;
@@ -672,7 +604,7 @@ button {
   font-family: var(--font-mono);
   font-size: var(--t-4xs);
   font-variant-numeric: tabular-nums;
-  color: var(--muted);
+  color: var(--fg-muted);
   text-transform: uppercase;
   letter-spacing: var(--track-wider);
 }
@@ -774,7 +706,7 @@ button {
   font-family: var(--font-mono);
   font-size: var(--t-5xs);
   line-height: 1.3;
-  color: var(--muted);
+  color: var(--fg-muted);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -872,7 +804,7 @@ button {
 .variant-code {
   font-family: var(--font-mono);
   font-size: var(--t-5xs);
-  color: var(--muted);
+  color: var(--fg-muted);
 }
 
 /* ---- Grid rows + cards -------------------------------------------------- */
@@ -1036,7 +968,7 @@ button {
 .detail-title span {
   font-family: var(--font-mono);
   font-size: var(--t-5xs);
-  color: var(--muted);
+  color: var(--fg-muted);
   overflow-wrap: anywhere;
 }
 
@@ -1174,7 +1106,7 @@ button {
   margin: 0 auto;
   font-size: var(--t-2xs);
   line-height: 1.5;
-  color: var(--muted);
+  color: var(--fg-muted);
   text-align: center;
 }
 
